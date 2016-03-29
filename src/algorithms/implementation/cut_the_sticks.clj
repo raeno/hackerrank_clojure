@@ -12,39 +12,26 @@
 
 ; Note: For each cut operation, you have to recalcuate the length of smallest sticks (excluding zero-length sticks).
 
+(ns algorithms.implementation.cut-the-sticks
+  (:require [clojure.string :refer [split triml]]))
 
-(use '[clojure.string :only (split triml)])
+(defn cut-array
+  [array]
+  (let [array-size (count array)]
+    (cond 
+      (= array-size 0) []
+      (> array-size 0) (
+        (let [min-stick (apply min array)
+              trimmed-array (map (fn [x] (- min-stick x)) array) 
+              new-array (filter pos? trimmed-array)]
+          (println array-size)
+          (cut-array new-array))))))
 
-(
-    let [
-      n (Integer/parseInt (read-line)) 
-    ]
-  (
-    let [
-      arr_temp (read-line) 
-      arr_t (split arr_temp #"\s+") 
-      arr (map #(Integer/parseInt %) arr_t)
-    ]
-    (defn cut-array
-      [array]
-      (let [
-          array-size (count array)
-        ]
-        (cond 
-          (= array-size 0) []
-          (> array-size 0) (
-            (let [ 
-                 min-stick (apply min array)
-                 trimmed-array (map (fn [x] (- min-stick x)) array) 
-                 new-array (filter pos? trimmed-array)
-                 ]
-              (println array-size)
-              (cut-array new-array)
-            )
-          )
-        )
-      )
-    )
-    (cut-array arr)
-  )
-)
+(defn solution
+  []
+  (let [n (Integer/parseInt (read-line)) 
+        arr_temp (read-line) 
+        arr_t (split arr_temp #"\s+") 
+        arr (map #(Integer/parseInt %) arr_t)]
+      (cut-array arr)))
+

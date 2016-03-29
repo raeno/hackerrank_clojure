@@ -1,24 +1,25 @@
-(use '[clojure.string :only (split triml)])
+(ns algorithms.implementation.service-lane
+  (:require [clojure.string :refer [split]]))
 
-(
-        let [
-          n_temp (read-line) 
-          n_t (split n_temp #"\s+") 
-          n (Integer/parseInt (n_t 0)) 
-          t (Integer/parseInt (n_t 1)) 
-        ]
+(defn solution
+  []
+  (
+    let [
+      n_temp (read-line) 
+      n_t (split n_temp #"\s+") 
+      n (Integer/parseInt (n_t 0)) 
+      t (Integer/parseInt (n_t 1))]
 
-      (
-        let [
-          width_temp (read-line) 
-          width_t (split width_temp #"\s+") 
-          width (map #(Integer/parseInt %) width_t) 
-        ]
-        (def width-array width)
-      )
+    (
+      let [
+        width_temp (read-line) 
+        width_t (split width_temp #"\s+") 
+        width (map #(Integer/parseInt %) width_t) 
+      ]
+      (def width-array width))
 
-      (
-        loop [a0 t]
+    (
+      loop [a0 t]
         (when (> a0 0)
 
           (
@@ -32,7 +33,5 @@
             ]
             (println min-width)
           )
-        (recur (- a0 1) ) )
-      )
-)
+        (recur (- a0 1) )))))
 
